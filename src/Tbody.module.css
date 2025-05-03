@@ -1,0 +1,28 @@
+.tbody .row:nth-child(even) {
+  background: #3f3f3f;
+}
+.row {
+  position: relative;
+}
+.row__button {
+  padding: 0.5rem 0.75rem;
+  position: absolute;
+  top: 50%;
+  right: -10%;
+  transform: translate(100%, -50%);
+  border: 1px solid #fff;
+  border-radius: 8px;
+  transition: 0.4s ease-in-out;
+}
+.row__button:hover {
+  background: #fff;
+  color: #000;
+  box-shadow: 0 0 5px #fff; 
+}
+.striped {
+  text-decoration: line-through;
+  color: rgba(255, 255, 255, 0.5);
+}
+.button {
+    font-size: 0.875rem;
+}
