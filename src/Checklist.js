@@ -1,23 +1,27 @@
 import styles from './Checklist.module.css';
 import {useState} from 'react';
+import {customAlphabet} from 'nanoid';
 import Thead from './Thead';
 import Tbody from './Tbody';
 
+const nanoid = customAlphabet('1234567890abcdef', 10);
+
 const todoList = [
-  {time: '06:30 am', aim: 'Get up'},
-  {time: '06:40 am', aim: 'Have a breakfast'},
-  {time: '07:45 am', aim: 'Go at work'},
-  {time: '01:00 pm', aim: 'Have a lunch'},
-  {time: '02:00 pm', aim: 'Work again'},
-  {time: '06:00 pm', aim: 'Go home'},
-  {time: '07:00 pm', aim: 'Have a dinner'},
-  {time: '08:00 pm', aim: 'Wash'},
-  {time: '10:00 pm', aim: 'Sleep'},
-]
+  {id: nanoid(), isEdit: false, isChecked: false, time: '06:30', aim: 'Get up'},
+  {id: nanoid(), isEdit: false, isChecked: false, time: '06:40', aim: 'Have a breakfast'},
+  {id: nanoid(), isEdit: false, isChecked: false, time: '07:45', aim: 'Go at work'},
+  {id: nanoid(), isEdit: false, isChecked: false, time: '13:00', aim: 'Have a lunch'},
+  {id: nanoid(), isEdit: false, isChecked: false, time: '14:00', aim: 'Work again'},
+  {id: nanoid(), isEdit: false, isChecked: false, time: '18:00', aim: 'Go home'},
+  {id: nanoid(), isEdit: false, isChecked: false, time: '19:00', aim: 'Have a dinner'},
+  {id: nanoid(), isEdit: false, isChecked: false, time: '20:00', aim: 'Wash'},
+  {id: nanoid(), isEdit: false, isChecked: false, time: '22:00', aim: 'Sleep'},
+];
 
 function Checklist() {
   const [value, setValue] = useState(todoList);
-  const [checked, setChecked] = useState(false);
+  // const [checked, setChecked] = useState(false); 
+  // const [isEdit, setIsEdit] = useState(false);
 
   function changeHandler(index, event) {
     setValue([
@@ -27,8 +31,22 @@ function Checklist() {
     ]);
   }
 
-  function checkHandler(event) {
-    setChecked(!checked);
+  function clickHandler(id) {
+    setValue(value.map((previous) => {
+      if (previous.id === id) {
+        previous.isEdit = !previous.isEdit;
+      }
+      return previous;
+    }))
+  }
+
+  function checkHandler(id) {
+    setValue(value.map((previous) => {
+      if (previous.id === id) {
+        previous.isChecked = !previous.isChecked;
+      }
+      return previous;
+    }))
   }
 
   return <table className={styles.table}>
@@ -39,10 +57,12 @@ function Checklist() {
     <Tbody
       styleNumber={styles.number} 
       todoList={todoList}
-      checked={checked}
+      value={value}
+      changeHandler={changeHandler}
+      clickHandler={clickHandler}
       checkHandler={checkHandler}
     />
-  </table>
+  </table> // добавить инпут и кнопку для добавления элемента в таблицу и расположить в порядке возрастания по времени 
 }
 
 export default Checklist;
