@@ -6,6 +6,9 @@ import Tbody from './Tbody';
 
 const nanoid = customAlphabet('1234567890abcdef', 10);
 
+const compareFn = (previous, next) => 
+  previous.time.localeCompare(next.time);
+
 const todoList = [
   {id: nanoid(), isEdit: false, isChecked: false, time: '06:30', aim: 'Get up'},
   {id: nanoid(), isEdit: false, isChecked: false, time: '06:40', aim: 'Have a breakfast'},
@@ -20,15 +23,17 @@ const todoList = [
 
 function Checklist() {
   const [value, setValue] = useState(todoList);
-  // const [checked, setChecked] = useState(false); 
-  // const [isEdit, setIsEdit] = useState(false);
 
-  function changeHandler(index, event) {
-    setValue([
-      ...value.slice(0, index),
-      event.target.value,
-      ...value.slice(index + 1)
-    ]);
+  function editInputs(id, field, event) {
+    setValue(value.map((element) => {
+      if (element.id === id) {
+        element[field] = event.target.value;
+      }
+      /* if (!element[field].includes(':')) {
+        element[field] = null;
+      } */
+      return element;
+    }));
   }
 
   function clickHandler(id) {
@@ -38,6 +43,9 @@ function Checklist() {
       }
       return previous;
     }))
+    const copy = value.slice();
+    copy.sort(compareFn);
+    setValue(copy);
   }
 
   function checkHandler(id) {
@@ -56,9 +64,9 @@ function Checklist() {
     />
     <Tbody
       styleNumber={styles.number} 
-      todoList={todoList}
+      list={value}
       value={value}
-      changeHandler={changeHandler}
+      editInputs={editInputs}
       clickHandler={clickHandler}
       checkHandler={checkHandler}
     />

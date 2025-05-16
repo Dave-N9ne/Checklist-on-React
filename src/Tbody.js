@@ -2,20 +2,20 @@ import styles from './Tbody.module.css';
 
 function Tbody({
     styleNumber, 
-    todoList, 
-    value, 
-    changeHandler,
+    list, 
+    inputValue, 
+    editInputs,
     clickHandler,
     checkHandler
 }) {
     return <tbody className={styles.tbody}>
     {
-      todoList
+      list
       .map((row, index) => {
         const number = index + 1;
         const id = row.id;
         const isChecked = row.isChecked;
-        const idEdit = row.isEdit;
+        const isEdit = row.isEdit;
         return <tr
                  key={number}
                  className={
@@ -40,12 +40,24 @@ function Tbody({
             Object
             .entries(row)
             .map(([key, value], index) => 
-            typeof value !== 'boolean' 
+            typeof value !== 'boolean'
             &&
             key !== 'id'
             ?
             <td key={index}>
-              {value}  
+              {
+                isEdit
+                ?
+                <input
+                  className={styles.input}
+                  type="text"
+                  value={value}
+                  onChange={(event) =>
+                    editInputs(id, key, event)}
+                />
+                :
+                value
+              }  
             </td>
             :
             null) 
@@ -56,7 +68,7 @@ function Tbody({
             onClick={() =>
               clickHandler(id)}
           >
-            {idEdit ? 'Confirm' : 'Edit'}
+            {isEdit ? 'Confirm' : 'Edit'}
           </button>
         </tr>})
     }
