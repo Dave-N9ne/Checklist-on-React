@@ -1,9 +1,15 @@
-button {
+button,
+input {
   background: transparent;
   border: none;
-  cursor: pointer;
   font: inherit;
   color: #fff;
+}
+input {
+  text-align: center;
+}
+button {
+  cursor: pointer;
 }
 table,
 tr,
