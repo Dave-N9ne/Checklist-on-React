@@ -8,9 +8,17 @@ function Thead({styleNumber, row}) {
             Object
             .keys(row)
             .map((key, index) =>
+            key !== 'isEdit' 
+            &&
+            key !== 'isChecked'
+            &&
+            key !== 'id'
+            ?
             <td key={index}>
               {key}
-            </td>)
+            </td>
+            : 
+            null)
           }
         </tr>
     </thead>
