@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+}
 button,
 input {
   background: transparent;
@@ -28,6 +34,9 @@ td {
 ::selection {
   background: #f00;
   color: #000;
+}
+table {
+  margin-bottom: 150px;
 }
 
 .label {
@@ -75,3 +84,26 @@ td {
   font-size: 2rem;
   font-weight: 600;
 }
+
+/** ===== ADDING ===== */
+
+.adding > * {
+  margin-bottom: 60px;
+}
+.adding__input {
+  margin-bottom: 30px;
+  border-bottom: 1px solid #fff;
+  text-align: left;
+}
+.adding__button {
+  padding: 10px;
+  border: 1px solid #fff;
+  transition: 0.4s ease-in-out;
+}
+.adding__button:hover {
+  background: #fff;
+  color: #000;
+  box-shadow: 0 0 5px #fff; 
+}
+
+/** ===== /ADDING ===== */
