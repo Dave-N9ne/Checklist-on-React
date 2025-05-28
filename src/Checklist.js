@@ -3,6 +3,7 @@ import {useState} from 'react';
 import {customAlphabet} from 'nanoid';
 import Thead from './Thead';
 import Tbody from './Tbody';
+import Control from './Control.js';
 
 const nanoid = customAlphabet('1234567890abcdef', 10);
 
@@ -21,30 +22,17 @@ const todoList = [
   {id: nanoid(), isEdit: false, isChecked: false, time: '22:00', aim: 'Sleep'},
 ];
 
+const controlKeys = Object
+    .keys(todoList[0])
+    .filter((element) =>
+    element === 'time' || element === 'aim');
+const controlLength = controlKeys.length;
+const inputValues = [...new Array(controlLength)]
+                    .map(element => '');
+
 function Checklist() {
   const [value, setValue] = useState(todoList);
-
-  const [value2, setValue2] = useState(['', '']);
-  const newRow = <div className={styles.adding}>
-    <ul className={styles.adding__list}>
-      {value2.map((element, index) => <li className={styles.adding__item}>
-      <input
-        className={styles.adding__input}
-        type="text"
-        value={element}
-        onChange={(event) => 
-          changeHandler2(index, event)}
-      />
-    </li>)}
-    </ul>
-    <button
-      className={styles.adding__button}
-      onClick={() => 
-        addRow(value2[0], value2[1])}
-    >
-        Add New Row
-    </button>
-  </div>
+  const [value2, setValue2] = useState(inputValues);
 
   function editInputs(id, field, event) {
     setValue(value.map((element) => {
@@ -85,17 +73,25 @@ function Checklist() {
     ])
   }
 
-  function addRow(value1, value2) {
+  function addRow() {
     const copy = [...value];
-    copy.push({
+    const adding = {
       id: nanoid(),
       isEdit: false,
       isChecked: false,
-      time: value1,
-      aim: value2,
-    })
+    };
+    const sum = value2
+    .reduce((
+      acc, 
+      elem, 
+      i
+    ) => {
+      return {...acc, [controlKeys[i]]: elem}
+    }, adding)
+    copy.push(sum);
     copy.sort(compareFn);
     setValue(copy);
+    setValue2(value2.fill(''));
   }
 
   return <>
@@ -113,8 +109,13 @@ function Checklist() {
         checkHandler={checkHandler}
       />
     </table>
-    {newRow}
-  </> // добавить инпут и кнопку для добавления элемента в таблицу и расположить в порядке возрастания по времени 
+    <Control
+      value={value2}
+      controlKeys={controlKeys}
+      addRow={addRow}
+      changeHandler={changeHandler2}
+    />
+  </>
 }
 
 export default Checklist;
