@@ -20,7 +20,7 @@ function Control({value, controlKeys, addRow, changeHandler}) {
           className={styles.control__button}
           onClick={addRow}
         >
-            Add new now
+            Add new row
         </button>
     </div>
 }
