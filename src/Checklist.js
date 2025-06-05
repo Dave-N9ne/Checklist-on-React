@@ -86,15 +86,15 @@ function Checklist() {
       elem, 
       i
     ) => {
-      return {...acc, [controlKeys[i]]: elem}
-    }, adding)
+        return {...acc, [controlKeys[i]]: elem}
+      }, adding);
     copy.push(sum);
     copy.sort(compareFn);
     setValue(copy);
     setValue2(value2.fill(''));
-  }
+  } //! добавить условие, при котором нельзя будет вводить неправильное время
 
-  return <>
+  return <div className={styles.container}>
     <table className={styles.table}>
       <Thead
         styleNumber={styles.number}
@@ -115,7 +115,7 @@ function Checklist() {
       addRow={addRow}
       changeHandler={changeHandler2}
     />
-  </>
+  </div>
 }
 
 export default Checklist;
