@@ -6,13 +6,14 @@
     gap: 3rem;
 }
 .control__item {
-    display: flex;
+    display: inline-flex;
     gap: 10px;
 }
 .control__input {
   margin-bottom: 30px;
   border-bottom: 1px solid #fff;
   text-align: left;
+  display: inline-block;
 }
 .control__button {
   padding: 10px;
@@ -23,4 +24,10 @@
   background: #fff;
   color: #000;
   box-shadow: 0 0 5px #fff; 
+}
+
+@media (max-width: 768px) {
+  .control__list {
+    flex-direction: column;
+  }
 }
