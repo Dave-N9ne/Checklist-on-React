@@ -3,10 +3,10 @@ import styles from './Tbody.module.css';
 function Tbody({
     styleNumber, 
     list, 
-    inputValue, 
     editInputs,
     clickHandler,
-    checkHandler
+    checkHandler,
+    regexp
 }) {
     return <tbody className={styles.tbody}>
     {
@@ -39,28 +39,27 @@ function Tbody({
           {
             Object
             .entries(row)
-            .map(([key, value], index) => 
-            typeof value !== 'boolean'
-            &&
-            key !== 'id'
-            ?
-            <td key={index}>
-              {
-                isEdit
-                ?
-                <input
-                  className={styles.input}
-                  type="text"
-                  value={value}
-                  onChange={(event) =>
-                    editInputs(id, key, event)}
-                />
-                :
-                value
-              }  
-            </td>
-            :
-            null) 
+            .map(([key, value], index) => {
+              if (
+                typeof value !== 'boolean' 
+                && 
+                key !== 'id'
+              )
+              return <td key={index}>
+                {
+                  isEdit
+                  ?
+                  <input
+                   className={styles.input}
+                   type="text"
+                   value={value}
+                   onChange={(event) =>
+                     editInputs(id, key, event)}
+                  />
+                  :
+                  value
+                }  
+              </td>})
           }
           <button
             type='button'
