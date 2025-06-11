@@ -22,6 +22,8 @@ const todoList = [
   {id: nanoid(), isEdit: false, isChecked: false, time: '22:00', aim: 'Sleep'},
 ];
 
+const regexpTime = /^(0?[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$/
+
 const controlKeys = Object
     .keys(todoList[0])
     .filter((element) =>
@@ -50,7 +52,6 @@ function Checklist() {
       }
       return previous;
     }))
-
     const copy = [...value];
     copy.sort(compareTime);
     setValue(copy);
@@ -92,12 +93,10 @@ function Checklist() {
         return {...acc, [controlKeys[i]]: elem}
       }, adding);
     if (
-      !+sum.time ||
-      sum.time.length !== 4
+      !regexpTime.test(sum.time)
     ) {
       return;
     }
-    sum.time = sum.time.slice(0, 2) + ':' + sum.time.slice(2);
     copy.push(sum);
     copy.sort(compareTime);
     setValue(copy);
@@ -113,10 +112,10 @@ function Checklist() {
       <Tbody
         styleNumber={styles.number} 
         list={value}
-        value={value}
         editInputs={editInputs}
         clickHandler={clickHandler}
         checkHandler={checkHandler}
+        regexp={regexpTime}
       />
     </table>
     <Control
