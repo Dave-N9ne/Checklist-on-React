@@ -13,7 +13,7 @@ function Control({value, controlKeys, addRow, changeHandler}) {
           <input
             className={styles.control__input}
             value={element}
-            type={controlKeys[index] === 'time' ? 'number' : 'text'}
+            type='text'
             onChange={(event) => 
               changeHandler(index, event)}
           />
