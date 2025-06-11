@@ -91,10 +91,13 @@ function Checklist() {
     ) => {
         return {...acc, [controlKeys[i]]: elem}
       }, adding);
-    if (sum.time.length !== 4) {
+    if (
+      !+sum.time ||
+      sum.time.length !== 4
+    ) {
       return;
     }
-    sum.time = sum.time.slice(0, 2) + ':' + sum.time.slice(2)
+    sum.time = sum.time.slice(0, 2) + ':' + sum.time.slice(2);
     copy.push(sum);
     copy.sort(compareTime);
     setValue(copy);
