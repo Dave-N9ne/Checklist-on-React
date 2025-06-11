@@ -7,7 +7,7 @@ import Control from './Control.js';
 
 const nanoid = customAlphabet('1234567890abcdef', 10);
 
-const compareFn = (previous, next) => 
+const compareTime = (previous, next) => 
   previous.time.localeCompare(next.time);
 
 const todoList = [
@@ -52,7 +52,7 @@ function Checklist() {
     }))
 
     const copy = [...value];
-    copy.sort(compareFn);
+    copy.sort(compareTime);
     setValue(copy);
   }
 
@@ -74,6 +74,9 @@ function Checklist() {
   }
 
   function addRow() {
+    value2.forEach(element => {
+      if (!element) return;
+    })
     const copy = [...value];
     const adding = {
       id: nanoid(),
@@ -88,11 +91,15 @@ function Checklist() {
     ) => {
         return {...acc, [controlKeys[i]]: elem}
       }, adding);
+    if (sum.time.length !== 4) {
+      return;
+    }
+    sum.time = sum.time.slice(0, 2) + ':' + sum.time.slice(2)
     copy.push(sum);
-    copy.sort(compareFn);
+    copy.sort(compareTime);
     setValue(copy);
     setValue2(value2.fill(''));
-  } //! добавить условие, при котором нельзя будет вводить неправильное время
+  }
 
   return <div className={styles.container}>
     <table className={styles.table}>
