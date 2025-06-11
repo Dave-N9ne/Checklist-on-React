@@ -19,7 +19,7 @@ body {
   padding-bottom: 40px;
 }
 .details__desc {
-  color: #f00;
+  color: #FCB514;
 }
 
 @media (max-width: 576px) {
