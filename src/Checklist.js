@@ -141,9 +141,11 @@ function Checklist() {
   }
 
   function addRow() {
-    value2.forEach(element => {
-      if (!element) return;
-    })
+    for (const element of value2) {
+      if (!element) {
+        return;
+      }
+    }
     const copy = [...value];
     const adding = {
       id: nanoid(),
