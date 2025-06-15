@@ -11,18 +11,72 @@ const compareTime = (previous, next) =>
   previous.time.localeCompare(next.time);
 
 const todoList = [
-  {id: nanoid(), isEdit: false, isChecked: false, time: '06:30', aim: 'Get up'},
-  {id: nanoid(), isEdit: false, isChecked: false, time: '06:40', aim: 'Have a breakfast'},
-  {id: nanoid(), isEdit: false, isChecked: false, time: '07:45', aim: 'Go at work'},
-  {id: nanoid(), isEdit: false, isChecked: false, time: '13:00', aim: 'Have a lunch'},
-  {id: nanoid(), isEdit: false, isChecked: false, time: '14:00', aim: 'Work again'},
-  {id: nanoid(), isEdit: false, isChecked: false, time: '18:00', aim: 'Go home'},
-  {id: nanoid(), isEdit: false, isChecked: false, time: '19:00', aim: 'Have a dinner'},
-  {id: nanoid(), isEdit: false, isChecked: false, time: '20:00', aim: 'Wash'},
-  {id: nanoid(), isEdit: false, isChecked: false, time: '22:00', aim: 'Sleep'},
+  {
+    id: nanoid(), 
+    isEdit: false, 
+    isChecked: false, 
+    time: '06:30', 
+    aim: 'Get up'
+  },
+  {
+    id: nanoid(), 
+    isEdit: false, 
+    isChecked: false, 
+    time: '06:40', 
+    aim: 'Have a breakfast'
+  },
+  {
+    id: nanoid(), 
+    isEdit: false, 
+    isChecked: false, 
+    time: '07:45', 
+    aim: 'Go at work'
+  },
+  {
+    id: nanoid(), 
+    isEdit: false, 
+    isChecked: false, 
+    time: '13:00', 
+    aim: 'Have a lunch'
+  },
+  {
+    id: nanoid(), 
+    isEdit: false, 
+    isChecked: false, 
+    time: '14:00', 
+    aim: 'Work again'
+  },
+  {
+    id: nanoid(), 
+    isEdit: false, 
+    isChecked: false, 
+    time: '18:00', 
+    aim: 'Go home'
+  },
+  {
+    id: nanoid(), 
+    isEdit: false, 
+    isChecked: false, 
+    time: '19:00', 
+    aim: 'Have a dinner'
+  },
+  {
+    id: nanoid(), 
+    isEdit: false, 
+    isChecked: false, 
+    time: '20:00', 
+    aim: 'Wash'
+  },
+  {
+    id: nanoid(), 
+    isEdit: false, 
+    isChecked: false, 
+    time: '22:00', 
+    aim: 'Sleep'
+  },
 ];
 
-const regexpTime = /^(0?[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$/
+const regexpTime = /^(0?[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$/;
 
 const controlKeys = Object
     .keys(todoList[0])
@@ -31,7 +85,6 @@ const controlKeys = Object
 const controlLength = controlKeys.length;
 const inputValues = [...new Array(controlLength)]
                     .map(element => '');
-
 function Checklist() {
   const [value, setValue] = useState(todoList);
   const [value2, setValue2] = useState(inputValues);
@@ -103,6 +156,12 @@ function Checklist() {
     setValue2(value2.fill(''));
   }
 
+  function deleteRow(id) {
+    const copy = [...value];
+    copy.splice(id, 1);
+    setValue(copy)
+  }
+
   return <div className={styles.container}>
     <table className={styles.table}>
       <Thead
@@ -114,8 +173,8 @@ function Checklist() {
         list={value}
         editInputs={editInputs}
         clickHandler={clickHandler}
+        deleteRow={deleteRow}
         checkHandler={checkHandler}
-        regexp={regexpTime}
       />
     </table>
     <Control
