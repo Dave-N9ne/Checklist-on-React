@@ -5,8 +5,8 @@ function Tbody({
     list, 
     editInputs,
     clickHandler,
+    deleteRow,
     checkHandler,
-    regexp
 }) {
     return <tbody className={styles.tbody}>
     {
@@ -61,15 +61,28 @@ function Tbody({
                 }  
               </td>})
           }
-          <button
-            type='button'
-            className={styles.row__button}
-            onClick={() =>
-              clickHandler(id)}
-          >
-            {isEdit ? 'Confirm' : 'Edit'}
-          </button>
-        </tr>})
+          <ul className={styles.row__list}>
+            <li className={styles.row__item}>
+              <button
+                type='button'
+                className={styles.row__button}
+                onClick={() =>
+                  clickHandler(id)}
+              >
+                {isEdit ? 'Confirm' : 'Edit'}
+              </button> 
+            </li>
+            <li className={styles.row__item}>
+              <button
+                type='button'
+                className={styles.row__button}
+                onClick={() => deleteRow(id)}
+              >
+                Delete
+              </button>
+            </li>
+          </ul>
+        </tr>}) // ! Сделать кнопку для удаления строки
     }
   </tbody>;
 }
