@@ -1,5 +1,12 @@
 import styles from './Tbody.module.css';
 
+const addAdditionalStyle = (
+  condition, 
+  addedStyle, 
+  ...initialStyles
+) => 
+  `${initialStyles.map(style => `${style} `)}
+   ${condition ? `${addedStyle}` : ``}`
 function Tbody({
     styleNumber, 
     list, 
@@ -19,16 +26,21 @@ function Tbody({
         return <tr
                  key={number}
                  className={
-                  isChecked ? 
-                  `${styles.row} ${styles.striped}` : 
-                  `${styles.row}`
-          }>
+                  addAdditionalStyle(
+                   isChecked,
+                   styles.striped,
+                   styles.row
+                  )
+                 }
+                >
           <td className={styleNumber}>
             <button
               className={
-                isChecked ? 
-                `${styles.row} ${styles.striped}` : 
-                `${styles.row}`
+                addAdditionalStyle(
+                 isChecked,
+                 styles.striped,
+                 styles.row
+                )
               }
               type='button'
               onClick={() => checkHandler(id)}
