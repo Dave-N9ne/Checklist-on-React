@@ -89,7 +89,7 @@ function Tbody({
               <button
                 type='button'
                 className={styles.row__button}
-                onClick={() => deleteRow(id)}
+                onClick={() => deleteRow(index)}
               >
                 Delete
               </button>
