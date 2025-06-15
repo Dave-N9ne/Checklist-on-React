@@ -7,6 +7,7 @@ const addAdditionalStyle = (
 ) => 
   `${initialStyles.map(style => `${style} `)}
    ${condition ? `${addedStyle}` : ``}`
+   
 function Tbody({
     styleNumber, 
     list, 
