@@ -85,6 +85,7 @@ const controlKeys = Object
 const controlLength = controlKeys.length;
 const inputValues = [...new Array(controlLength)]
                     .map(element => '');
+
 function Checklist() {
   const [value, setValue] = useState(todoList);
   const [value2, setValue2] = useState(inputValues);
@@ -99,12 +100,24 @@ function Checklist() {
   }
 
   function clickHandler(id) {
-    setValue(value.map((previous) => {
-      if (previous.id === id) {
-        previous.isEdit = !previous.isEdit;
+    const editedElement = value
+          .find((element) => 
+            element.id === id);
+
+    if (editedElement.isEdit) {
+      if (!regexpTime.test(editedElement.time)) {
+        alert('Enter a correct time like is written below');
+        return;
       }
-      return previous;
-    }))
+
+      for (const key of controlKeys) {
+        if (!editedElement[key]) {
+          alert('The input cannot be empty');
+          return;
+        }
+      }
+    }
+    editedElement.isEdit = !editedElement.isEdit
     const copy = [...value];
     copy.sort(compareTime);
     setValue(copy);
