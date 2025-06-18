@@ -33,3 +33,6 @@
 .input {
   border-bottom: 1px solid #fff;
 }
+.none {
+  display: none;
+}
