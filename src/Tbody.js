@@ -88,7 +88,12 @@ function Tbody({
             <li className={styles.row__item}>
               <button
                 type='button'
-                className={styles.row__button}
+                className={addAdditionalStyle(
+                  isEdit,
+                  styles.none,
+                  styles.row__button,
+                  styles.button_delete
+                )}
                 onClick={() => deleteRow(index)}
               >
                 Delete
