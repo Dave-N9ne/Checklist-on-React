@@ -10,6 +10,9 @@ const nanoid = customAlphabet('1234567890abcdef', 10);
 const compareTime = (previous, next) => 
   previous.time.localeCompare(next.time);
 
+const containsOnlySpaces = (string) =>
+  /^( )\1*$/.test(string);
+
 const todoList = [
   {
     id: nanoid(), 
@@ -73,7 +76,7 @@ const todoList = [
     isChecked: false, 
     time: '22:00', 
     aim: 'Sleep'
-  },
+  }
 ];
 
 const regexpTime = /^([01][0-9]|2[0-3]):([0-5][0-9])$/;
@@ -82,6 +85,7 @@ const controlKeys = Object
     .keys(todoList[0])
     .filter((element) =>
     element === 'time' || element === 'aim');
+
 const controlLength = controlKeys.length;
 const inputValues = [...new Array(controlLength)]
                     .map(element => '');
@@ -111,8 +115,12 @@ function Checklist() {
       }
 
       for (const key of controlKeys) {
-        if (!editedElement[key]) {
-          alert('The input cannot be empty');
+        if (
+            !editedElement[key]
+            ||
+            containsOnlySpaces(editedElement[key])
+          ) {
+          alert('The input cannot be empty or contain only spaces');
           return;
         }
       }
@@ -142,7 +150,11 @@ function Checklist() {
 
   function addRow() {
     for (const element of value2) {
-      if (!element) {
+      if (
+          !element 
+          || 
+          containsOnlySpaces(element)
+        ) {
         return;
       }
     }
