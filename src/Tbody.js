@@ -89,7 +89,7 @@ function Tbody({
               <button
                 type='button'
                 className={addAdditionalStyle(
-                  isEdit,
+                  !isEdit,
                   styles.none,
                   styles.row__button,
                   styles.button_delete
